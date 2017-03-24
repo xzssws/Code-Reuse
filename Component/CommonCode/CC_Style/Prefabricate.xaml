@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Catalog.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <Style BasedOn="{StaticResource Button_Default_Style}" TargetType="Button" />
+    <Style BasedOn="{StaticResource Calendar_Default_Style}" TargetType="Calendar" />
+    <Style BasedOn="{StaticResource CheckBox_Default_Style}" TargetType="CheckBox" />
+    <Style BasedOn="{StaticResource ComboBox_Default_Style}" TargetType="ComboBox" />
+    <!--<Style BasedOn="{StaticResource Button_Default_Style}" TargetType="DataGrid" />-->
+    <Style BasedOn="{StaticResource Expander_Default_Style}" TargetType="Expander" />
+    <Style BasedOn="{StaticResource GridSplitter_Default_Style}" TargetType="GridSplitter" />
+    <Style BasedOn="{StaticResource GroupBox_Default_Style}" TargetType="GroupBox" />
+    <Style BasedOn="{StaticResource Label_Default_Style}" TargetType="Label" />
+    <Style BasedOn="{StaticResource ListBox_Default_Style}" TargetType="ListBox" />
+    <!--<Style BasedOn="{StaticResource ListBox_Default_Style}" TargetType="ListView" />-->
+    <Style BasedOn="{StaticResource Menu_Default_Style}" TargetType="Menu" />
+    <Style BasedOn="{StaticResource Password_Default_Style}" TargetType="PasswordBox" />
+    <Style BasedOn="{StaticResource ProgressBar_Default_Style}" TargetType="ProgressBar" />
+    <Style BasedOn="{StaticResource RadioButton_Default_Style}" TargetType="RadioButton" />
+    <Style BasedOn="{StaticResource RichTextBox_Default_Style}" TargetType="RichTextBox" />
+    <Style BasedOn="{StaticResource ScrollBar_Default_Style}" TargetType="ScrollBar" />
+    <Style BasedOn="{StaticResource ScrollViewer_Default_Style}" TargetType="ScrollViewer" />
+    <Style BasedOn="{StaticResource StatusBar_Default_Style}" TargetType="StatusBar"/>
+    <Style BasedOn="{StaticResource TabControl_Default_Style}" TargetType="TabControl" />
+    <Style BasedOn="{StaticResource TextBlock_Default_Style}" TargetType="TextBlock" />
+    <Style BasedOn="{StaticResource TextBox_Default_Style}" TargetType="TextBox"/>
+    <Style BasedOn="{StaticResource ToolBar_Default_Style}" TargetType="ToolBar" />
+    <Style BasedOn="{StaticResource TreeView_Default_Style}" TargetType="TreeView" />
+    <Style BasedOn="{StaticResource Window_Default_Style}" TargetType="Window" />
+    <Style BasedOn="{StaticResource UserControl_Default_Style}" TargetType="UserControl" />
+</ResourceDictionary>

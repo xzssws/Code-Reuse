@@ -1,0 +1,45 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\CommonColor\SubControlColor.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="..\CommonColor\MasterControlColor.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="..\CommonColor\Default.xaml"></ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style  x:Key="ListBox_Default_Style" TargetType="{x:Type ListBox}">
+        <Setter Property="Background" Value="{StaticResource Master_Background_DefaultColor}"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource Master_Foreground_DefaultColor}"></Setter>
+        <!--主要针对ListBoxItem进行修改-->
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style  TargetType="ListBoxItem">
+                    <!-- 设置控件模板 -->
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                 TextBlock.Foreground="{TemplateBinding Foreground}" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <!-- 设置触发器 -->
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter Property="Background" Value="{StaticResource Sub_Background_PressedColor}" />
+                            <Setter Property="Foreground" Value="{StaticResource Sub_Foreground_PressedColor}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" Value="{StaticResource Sub_Background_MouseOverColor}" />
+                            <Setter Property="Foreground" Value="{StaticResource Sub_Foreground_MouseOverColor}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Grid.IsSharedSizeScope" Value="True" />
+    </Style>
+</ResourceDictionary>

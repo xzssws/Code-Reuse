@@ -1,0 +1,63 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\CommonColor\MasterControlColor.xaml" />
+        <ResourceDictionary Source="..\CommonColor\SubControlColor.xaml" />
+        <ResourceDictionary Source="..\CommonColor\Default.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <!--  Button默认数据  -->
+    <System:Double x:Key="Button_Default_Width">80</System:Double>
+    <System:Double x:Key="Button_Default_Heigth">30</System:Double>
+    <!--  Button默认控件模板  -->
+    <ControlTemplate x:Key="Button_Default_ControlTemplate" TargetType="{x:Type Button}">
+        <Border x:Name="border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="5">
+            <ContentPresenter HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Style="{x:Null}" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="{StaticResource Master_Foreground_DisableColor}" />
+                <Setter TargetName="border" Property="Background" Value="{StaticResource Master_Background_DisableColor}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Master_Border_DisableColor}" />
+                <Setter Property="Opacity" Value="{StaticResource Master_Control_DisableOpacity}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Master_Foreground_PressedColor}" />
+                <Setter TargetName="border" Property="Background" Value="{StaticResource Master_Background_PressedColor}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Master_Border_PressedColor}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Master_Foreground_PressedColor}" />
+                <Setter TargetName="border" Property="Background" Value="{StaticResource Master_Background_PressedColor}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Master_Border_PressedColor}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Master_Foreground_MouseOverColor}" />
+                <Setter TargetName="border" Property="Background" Value="{StaticResource Master_Background_MouseOverColor}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Master_Border_MouseOverColor}" />
+                <Setter Property="Opacity" Value="{StaticResource Master_Control_MouseOverOpacity}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <!--  Button默认样式  -->
+    <Style x:Key="Button_Default_Style" TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="{StaticResource Master_Foreground_DefaultColor}" />
+        <Setter Property="FontFamily" Value="{StaticResource TextBlock_FontFamily_Default}" />
+        <Setter Property="FontSize" Value="{StaticResource TextBlock_FontSize_Default}" />
+        <Setter Property="FontStyle" Value="{StaticResource TextBlock_FontStyle_Default}" />
+        <Setter Property="FontWeight" Value="{StaticResource TextBlock_FontWeight_Default}" />
+        <Setter Property="Width" Value="{StaticResource Button_Default_Width}" />
+        <Setter Property="Height" Value="{StaticResource Button_Default_Heigth}" />
+        <Setter Property="Background" Value="{StaticResource Master_Background_DefaultColor}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Master_Border_DefaultColor}" />
+        <Setter Property="BorderThickness" Value="{StaticResource Border_Thickness_DefaultValue}" />
+        <Setter Property="Opacity" Value="{StaticResource Master_Control_DefaultOpacity}" />
+        <Setter Property="Template" Value="{StaticResource Button_Default_ControlTemplate}" />
+    </Style>
+</ResourceDictionary>

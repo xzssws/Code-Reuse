@@ -1,0 +1,14 @@
+﻿<Window x:Class="Test.CC_ValidateRule.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="样式预览"
+        Width="590.672"
+        Height="450">
+    <Grid>
+        <Button Width="75"
+                Margin="42,34,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Button" />
+    </Grid>
+</Window>

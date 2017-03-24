@@ -1,0 +1,40 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!--副控件默认字体颜色-->
+    <SolidColorBrush x:Key="Sub_Foreground_DefaultColor" Color="Red"></SolidColorBrush>
+    <!--副控件默认背景色-->
+    <SolidColorBrush x:Key="Sub_Background_DefaultColor" Color="Yellow"></SolidColorBrush>
+    <!--副控件默认边框颜色-->
+    <SolidColorBrush x:Key="Sub_Border_DefaultColor" Color="Orange"></SolidColorBrush>
+    <!--副控件默认控件透明度-->
+    <sys:Double x:Key="Sub_Control_DefaultOpacity">1</sys:Double>
+
+    <!--副控件鼠标移入字体颜色-->
+    <SolidColorBrush x:Key="Sub_Foreground_MouseOverColor" Color="Red"></SolidColorBrush>
+    <!--副控件鼠标移入背景色-->
+    <SolidColorBrush x:Key="Sub_Background_MouseOverColor" Color="Orange"></SolidColorBrush>
+    <!--副控件鼠标移入边框色-->
+    <SolidColorBrush x:Key="Sub_Border_MouseOverColor" Color="Yellow"></SolidColorBrush>
+    <!--副控件鼠标移入控件透明度-->
+    <sys:Double x:Key="Sub_Control_MouseOverOpacity">0.5</sys:Double>
+
+    <!--副控件鼠标点击字体颜色-->
+    <SolidColorBrush x:Key="Sub_Foreground_PressedColor" Color="Red"></SolidColorBrush>
+    <!--副控件鼠标点击背景色-->
+    <SolidColorBrush x:Key="Sub_Background_PressedColor" Color="Red"></SolidColorBrush>
+    <!--副控件鼠标点击边框色-->
+    <SolidColorBrush x:Key="Sub_Border_PressedColor" Color="Blue"></SolidColorBrush>
+    <!--副控件鼠标点击控件透明度-->
+    <sys:Double x:Key="Sub_Control_PressedOpacity">0.8</sys:Double>
+
+    <!--副控件控件禁用字体颜色-->
+    <SolidColorBrush x:Key="Sub_Foreground_DisableColor" Color="Red"></SolidColorBrush>
+    <!--副控件控件禁用背景色-->
+    <SolidColorBrush x:Key="Sub_Background_DisableColor" Color="Gray"></SolidColorBrush>
+    <!--副控件控件禁用边框色-->
+    <SolidColorBrush x:Key="Sub_Border_DisableColor" Color="Gray"></SolidColorBrush>
+    <!--副控件控件透明度-->
+    <sys:Double x:Key="Sub_Control_DisableOpacity">1</sys:Double>
+</ResourceDictionary>

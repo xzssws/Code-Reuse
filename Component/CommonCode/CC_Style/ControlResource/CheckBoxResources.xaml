@@ -1,0 +1,69 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\CommonColor\MasterControlColor.xaml" />
+        <ResourceDictionary Source="..\CommonColor\SubControlColor.xaml" />
+        <ResourceDictionary Source="..\CommonColor\Default.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <!--  CheckBox默认选择框边框颜色  -->
+    <SolidColorBrush x:Key="CheckBox_TickBorderBrush_DefaultColor" Color="Gray" />
+    <SolidColorBrush x:Key="CheckBox_TickBackground_DefaultColor" Color="WhiteSmoke" />
+    <!--  CheckBox默认控件模板  -->
+    <ControlTemplate x:Key="CheckBox_Default_ControlTemplate" TargetType="{x:Type CheckBox}">
+        <StackPanel x:Name="stackpanel"
+                    Background="{TemplateBinding Background}"
+                    Orientation="Horizontal">
+            <Border x:Name="checkborder"
+                    Width="8"
+                    Height="8"
+                    Margin="1"
+                    Background="{StaticResource CheckBox_TickBackground_DefaultColor}"
+                    BorderBrush="{StaticResource CheckBox_TickBorderBrush_DefaultColor}"
+                    BorderThickness="0.5">
+                <Path x:Name="checktick"
+                      Width="7.667"
+                      Height="6.296"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      Data="M157.76404,94.990848 L164.00027,98.999963 181.03567,89.401331"
+                      Stretch="Fill"
+                      Visibility="Hidden" />
+            </Border>
+            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </StackPanel>
+        <ControlTemplate.Triggers>
+            <!--
+                <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Master_Foreground_PressedColor}" />
+                <Setter TargetName="stackpanel" Property="Background" Value="{StaticResource Master_Background_PressedColor}" />
+                </Trigger>
+            -->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Master_Foreground_MouseOverColor}" />
+                <Setter TargetName="stackpanel" Property="Background" Value="{StaticResource Master_Background_MouseOverColor}" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Master_Foreground_PressedColor}" />
+                <Setter TargetName="checktick" Property="Visibility" Value="Visible" />
+                <Setter TargetName="checktick" Property="Stroke" Value="{StaticResource Master_Background_PressedColor}" />
+                <Setter TargetName="stackpanel" Property="Background" Value="{StaticResource Master_Background_PressedColor}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="{StaticResource Master_Foreground_DisableColor}" />
+                <Setter TargetName="stackpanel" Property="Background" Value="{StaticResource Master_Background_DisableColor}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!--  CheckBox默认样式  -->
+    <Style x:Key="CheckBox_Default_Style" TargetType="{x:Type CheckBox}">
+        <Setter Property="Foreground" Value="{StaticResource Master_Foreground_DefaultColor}" />
+        <Setter Property="FontFamily" Value="{StaticResource TextBlock_FontFamily_Default}" />
+        <Setter Property="FontSize" Value="{StaticResource TextBlock_FontSize_Default}" />
+        <Setter Property="FontStyle" Value="{StaticResource TextBlock_FontStyle_Default}" />
+        <Setter Property="FontWeight" Value="{StaticResource TextBlock_FontWeight_Default}" />
+        <Setter Property="Background" Value="{StaticResource Master_Background_DefaultColor}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Master_Border_DefaultColor}" />
+        <Setter Property="BorderThickness" Value="{StaticResource Border_Thickness_DefaultValue}" />
+        <Setter Property="Template" Value="{StaticResource CheckBox_Default_ControlTemplate}" />
+    </Style>
+</ResourceDictionary>

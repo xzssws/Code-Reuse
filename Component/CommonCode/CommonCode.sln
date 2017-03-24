@@ -1,0 +1,90 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC_Converter", "CC_Converter\CC_Converter.csproj", "{9E14703A-F9C8-492D-9B83-3716F48FB1FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC_ValidateRule", "CC_ValidateRule\CC_ValidateRule.csproj", "{0493CDE6-3A3E-441E-9E56-B6E9D51E0637}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC_CommonClass", "CC_CommonClass\CC_CommonClass.csproj", "{04A50056-30F3-4EAC-8B1F-59A4B3D648C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC_DllInvoker", "CC_DllInvoker\CC_DllInvoker.csproj", "{A3E99B96-0A7E-4C2C-8B28-31CB9A94B42A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC_DataAccess", "CC_DataAccess\CC_DataAccess.csproj", "{B4CCFAAB-C4EC-4147-BDD4-F770BC0E76B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC_LanguageDictionary", "CC_LanguageDictionary\CC_LanguageDictionary.csproj", "{374DE726-7118-4BD0-B6B6-4C7E2DE05635}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC_Style", "CC_Style\CC_Style.csproj", "{265DA75A-9628-49C4-A327-4560F868AB09}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{FD912607-E3D3-4F03-B75C-C4E3C75D82DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.CC_Converter", "Test\Test.CC_Converter\Test.CC_Converter.csproj", "{DB2F3E3D-FF36-407E-835C-3532E9610574}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.CC_LanguageDictionary", "Test\Test.CC_LanguageDictionary\Test.CC_LanguageDictionary.csproj", "{BD2C6E95-9F7C-4CC9-A774-D7C09B40ADFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.CC_Style", "Test\Test.CC_Style\Test.CC_Style.csproj", "{65730568-F607-48CD-A2E2-9E700ED860C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.CC_ValidateRule", "Test\Test.CC_ValidateRule\Test.CC_ValidateRule.csproj", "{8FD91185-37E5-4D3F-9C39-7B1A3A8AE431}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E14703A-F9C8-492D-9B83-3716F48FB1FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E14703A-F9C8-492D-9B83-3716F48FB1FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E14703A-F9C8-492D-9B83-3716F48FB1FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E14703A-F9C8-492D-9B83-3716F48FB1FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0493CDE6-3A3E-441E-9E56-B6E9D51E0637}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0493CDE6-3A3E-441E-9E56-B6E9D51E0637}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0493CDE6-3A3E-441E-9E56-B6E9D51E0637}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0493CDE6-3A3E-441E-9E56-B6E9D51E0637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04A50056-30F3-4EAC-8B1F-59A4B3D648C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04A50056-30F3-4EAC-8B1F-59A4B3D648C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04A50056-30F3-4EAC-8B1F-59A4B3D648C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04A50056-30F3-4EAC-8B1F-59A4B3D648C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3E99B96-0A7E-4C2C-8B28-31CB9A94B42A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3E99B96-0A7E-4C2C-8B28-31CB9A94B42A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3E99B96-0A7E-4C2C-8B28-31CB9A94B42A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3E99B96-0A7E-4C2C-8B28-31CB9A94B42A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4CCFAAB-C4EC-4147-BDD4-F770BC0E76B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4CCFAAB-C4EC-4147-BDD4-F770BC0E76B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4CCFAAB-C4EC-4147-BDD4-F770BC0E76B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4CCFAAB-C4EC-4147-BDD4-F770BC0E76B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{374DE726-7118-4BD0-B6B6-4C7E2DE05635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{374DE726-7118-4BD0-B6B6-4C7E2DE05635}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{374DE726-7118-4BD0-B6B6-4C7E2DE05635}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{374DE726-7118-4BD0-B6B6-4C7E2DE05635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{265DA75A-9628-49C4-A327-4560F868AB09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{265DA75A-9628-49C4-A327-4560F868AB09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{265DA75A-9628-49C4-A327-4560F868AB09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{265DA75A-9628-49C4-A327-4560F868AB09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB2F3E3D-FF36-407E-835C-3532E9610574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB2F3E3D-FF36-407E-835C-3532E9610574}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB2F3E3D-FF36-407E-835C-3532E9610574}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB2F3E3D-FF36-407E-835C-3532E9610574}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD2C6E95-9F7C-4CC9-A774-D7C09B40ADFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD2C6E95-9F7C-4CC9-A774-D7C09B40ADFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD2C6E95-9F7C-4CC9-A774-D7C09B40ADFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD2C6E95-9F7C-4CC9-A774-D7C09B40ADFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65730568-F607-48CD-A2E2-9E700ED860C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65730568-F607-48CD-A2E2-9E700ED860C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65730568-F607-48CD-A2E2-9E700ED860C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65730568-F607-48CD-A2E2-9E700ED860C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FD91185-37E5-4D3F-9C39-7B1A3A8AE431}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FD91185-37E5-4D3F-9C39-7B1A3A8AE431}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FD91185-37E5-4D3F-9C39-7B1A3A8AE431}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FD91185-37E5-4D3F-9C39-7B1A3A8AE431}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DB2F3E3D-FF36-407E-835C-3532E9610574} = {FD912607-E3D3-4F03-B75C-C4E3C75D82DA}
+		{BD2C6E95-9F7C-4CC9-A774-D7C09B40ADFD} = {FD912607-E3D3-4F03-B75C-C4E3C75D82DA}
+		{65730568-F607-48CD-A2E2-9E700ED860C5} = {FD912607-E3D3-4F03-B75C-C4E3C75D82DA}
+		{8FD91185-37E5-4D3F-9C39-7B1A3A8AE431} = {FD912607-E3D3-4F03-B75C-C4E3C75D82DA}
+	EndGlobalSection
+EndGlobal

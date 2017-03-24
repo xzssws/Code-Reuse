@@ -1,0 +1,83 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\CommonColor\SubControlColor.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="..\CommonColor\MasterControlColor.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="..\CommonColor\Default.xaml"></ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="TextBox_Default_Style" BasedOn="{x:Null}" TargetType="{x:Type TextBox}">
+        <!--文字颜色-->
+        <Setter Property="Foreground" Value="{StaticResource Master_Foreground_DefaultColor}" />
+        <!--背景色-->
+        <Setter Property="Background" Value="{StaticResource Master_Background_DefaultColor}" />
+        <!--边框颜色-->
+        <Setter Property="BorderBrush" Value="{StaticResource Master_Border_DefaultColor}" />
+        <!--内边距-->
+        <Setter Property="Padding" Value="{StaticResource Padding_DefaultValue}" />
+        <!--边框粗细-->
+        <Setter Property="BorderThickness" Value="{StaticResource Border_Thickness_DefaultValue}" />
+        <!--外边距-->
+        <Setter Property="Margin" Value="{StaticResource Margin_DefaultValue}" />
+        <!--像素设置-->
+        <Setter Property="SnapsToDevicePixels" Value="True"></Setter>
+        <!--是否能拖放-->
+        <Setter Property="AllowDrop" Value="true" />
+        <!--滚动条-->
+        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
+        <!--获得焦点时的样式-->
+        <!--
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />-->
+        <!--光标-->
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+        <!--控件模版-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border x:Name="Bd"
+                            CornerRadius="5"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                        <!--这里要引用设置好的ScrollViewer-->
+                        <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Style="{DynamicResource ScrollViewer}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <!--鼠标移入时的属性设置-->
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="Bd" Value="{StaticResource Master_Background_MouseOverColor}"></Setter>
+                            <Setter Property="Foreground" Value="{StaticResource Master_Foreground_MouseOverColor}" />
+                            <Setter Property="BorderBrush" Value="{StaticResource Master_Border_MouseOverColor}" />
+                            <Setter Property="BorderThickness" TargetName="Bd" Value="1"></Setter>
+                        </Trigger>
+                        <!--获得焦点时的属性设置-->
+                        <Trigger Property="IsFocused" Value="true">
+                            <Setter Property="Background" TargetName="Bd" Value="{StaticResource Master_Background_PressedColor}"></Setter>
+                            <Setter Property="Foreground" Value="{StaticResource Master_Foreground_PressedColor}" />
+                            <Setter Property="BorderBrush" Value="{StaticResource Master_Border_PressedColor}" />
+                            <Setter Property="BorderThickness" TargetName="Bd" Value="1"></Setter>
+                        </Trigger>
+                        <!--控件不可用时的属性设置-->
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="Bd" Value="{StaticResource Master_Background_DisableColor}" />
+                            <Setter Property="Foreground" Value="{StaticResource Master_Foreground_DisableColor}" />
+                            <Setter Property="BorderBrush" Value="{StaticResource Master_Border_DisableColor}" />
+                            <Setter Property="BorderThickness" TargetName="Bd" Value="1"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true" />
+                    <Condition Property="IsSelectionActive" Value="false" />
+                </MultiTrigger.Conditions>
+                <Setter Property="SelectionBrush" Value="Black" />
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

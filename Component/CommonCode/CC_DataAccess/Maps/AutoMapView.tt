@@ -1,0 +1,85 @@
+﻿<#@ template debug="false" hostspecific="True" language="C#" #>
+<#@include file="$(SolutionDir)\Utils\TBUild.ttinclude" #>
+<#@ output extension=".i" #>
+<# 
+	//(* = *)这里是基本配置
+	Init("V");
+#>
+<#
+	List<Field> Canull;
+	List<Field> Nonull;
+	//亲~~~~~~~ 如果上面的基本配置好了就不要改我了。
+    foreach (Page page in pages)
+    {
+	  string DisplayName = page.Name; //文件名称
+	  string DisplayLabel = page.Label; //文件中文表示 现在所有都是英文
+      if(string.IsNullOrEmpty(DisplayName)){ DisplayName="None"+Flag;}//处理空字段空表情况
+	  Field PrimaryField = GetPrimaryKey(page);//主键字段
+	  NewFile(DisplayName+iBatisMap+".xml"); //生成文件名称定义	  
+	  string EntityName = DisplayName+EntitySuffix;
+	  Canull = new List<Field>();
+	  Nonull = new List<Field>();
+	  foreach (Field field in page.Fields){
+		  if(field.CanNull||field.IsIdentity||field.Default != string.Empty) Canull.Add(field);
+		  else Nonull.Add(field);
+      }
+	  
+#>
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+描述:<#=string.IsNullOrEmpty(DisplayLabel.Trim())?DisplayName:DisplayLabel.Replace(Environment.NewLine," ")#> Map映射
+说明:包含基本的返回集,基础查询操作,新增操作,修改操作和删除操作
+最后修改日期:<#=NowTime#>
+最后修改人:徐金泽
+修改原因:
+-->
+<sqlMap namespace="" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	<!--实体类别名-->
+	<alias>
+		<typeAlias alias="<#=EntityName#>" type="<#=EntityNameSpace.TrimEnd('.')#>.<#=EntityName#>,<#=EntityAssembly#>" />
+	</alias>
+	<!-- 
+	描述:基本的<#=string.IsNullOrEmpty(DisplayLabel.Trim())?DisplayName:DisplayLabel.Replace(Environment.NewLine," ")#>返回集映射
+	说明:基本的<#=string.IsNullOrEmpty(DisplayLabel.Trim())?DisplayName:DisplayLabel.Replace(Environment.NewLine," ")#>返回映射用于基础的Select操作
+	最后修改日期:<#=NowTime#>
+	最后修改人:徐金泽
+	修改原因:
+	-->
+	<resultMaps>
+		<resultMap id="Result-<#=DisplayName#>" class="<#=EntityName#>">
+<# foreach (Field field in page.Fields) { if(field.Name=="") field.Name = "Null"+Flag.ToString();#>
+			<result property="<#=field.Name#>" column="<#=field.Name#>"/>
+<#}#>
+		</resultMap>
+	</resultMaps>
+	<!--操作指令-->
+	<statements>
+		<sql id="Sql-<#=DisplayName#>-Condition">
+		 	WHERE  1=1
+<#foreach (Field field in page.Fields) { if(field.Name=="") {field.Name = "Null"+Flag.ToString();}#>
+			<isNotEmpty  prepend="AND" property="<#=field.Name#>">
+				<#=field.Name#> = #<#=field.Name#>#
+			</isNotEmpty>
+<#}#>
+		</sql>
+		<sql id="Sql-<#=DisplayName#>-Fields">
+<# for (int i = 0; i < page.Fields.Count; i++) {  Field field = page.Fields[i]; if(field.Name=="") { field.Name = "Null"+Flag.ToString();}#>
+			<#=field.Name+((i<page.Fields.Count-1)?",":"")#>
+<#}#>
+		</sql>
+		<!-- 
+		描述:根据条件查询 <#=string.IsNullOrEmpty(DisplayLabel.Trim())?DisplayName:DisplayLabel.Replace(Environment.NewLine," ")#>
+		说明:
+		最后修改日期:<#=NowTime#>
+		最后修改人:徐金泽
+		修改原因:
+		-->
+		<select id="Select-<#=DisplayName#>" resultMap="Result-<#=DisplayName#>" parameterClass="<#=EntityName#>">
+			SELECT
+		  <include refid="Sql-<#=DisplayName#>-Fields"/>
+			FROM <#=DisplayName#>
+			<include refid="Sql-<#=DisplayName#>-Condition"/>
+		</select>
+	</statements>
+</sqlMap>
+<#}EndFile();#>

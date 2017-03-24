@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ControlResource\ButtonResources.xaml" />
+        <ResourceDictionary Source="ControlResource\CalendarResources.xaml" />
+        <ResourceDictionary Source="ControlResource\CheckBoxResources.xaml" />
+        <ResourceDictionary Source="ControlResource\ComboBoxResources.xaml" />
+        <!--<ResourceDictionary Source="ControlResource\DataGridResources.xaml" />-->
+        <ResourceDictionary Source="ControlResource\ExpanderResources.xaml" />
+        <ResourceDictionary Source="ControlResource\GridSplitterResources.xaml" />
+        <ResourceDictionary Source="ControlResource\GroupBoxResources.xaml" />
+        <ResourceDictionary Source="ControlResource\LabelResources.xaml" />
+        <ResourceDictionary Source="ControlResource\ListBoxResources.xaml" />
+        <!--<ResourceDictionary Source="ControlResource\ListViewResources.xaml" />-->
+        <ResourceDictionary Source="ControlResource\MenuResources.xaml" />
+        <ResourceDictionary Source="ControlResource\PasswordBoxResources.xaml" />
+        <ResourceDictionary Source="ControlResource\ProgressBarResources.xaml" />
+        <ResourceDictionary Source="ControlResource\RadioButtonResources.xaml" />
+        <ResourceDictionary Source="ControlResource\RichTextBoxResources.xaml" />
+        <ResourceDictionary Source="ControlResource\ScrollBarResources.xaml" />
+        <ResourceDictionary Source="ControlResource\ScrollViewerResources.xaml" />
+        <ResourceDictionary Source="ControlResource\StatusBarResources.xaml" />
+        <ResourceDictionary Source="ControlResource\TabControlResources.xaml" />
+        <ResourceDictionary Source="ControlResource\TextBlockResources.xaml" />
+        <ResourceDictionary Source="ControlResource\TextBoxResources.xaml" />
+        <ResourceDictionary Source="ControlResource\ToolBarResources.xaml" />
+        <ResourceDictionary Source="ControlResource\TreeViewResources.xaml" />
+        <ResourceDictionary Source="ControlResource\WindowResources.xaml" />
+        <ResourceDictionary Source="ControlResource\UserControlResources.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

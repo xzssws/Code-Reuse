@@ -1,0 +1,351 @@
+<#@ assembly name="$(SolutionDir)\Utils\iBuild.dll"
+#>
+<#@ assembly name="System.Core"
+#><#@ assembly name="System.Data.Linq"
+#><#@ assembly name="EnvDTE"
+#><#@ assembly name="System.Xml"
+#><#@ assembly name="System.Xml.Linq"
+#><#@ import namespace="System"
+#><#@ import namespace="System.CodeDom"
+#><#@ import namespace="System.CodeDom.Compiler"
+#><#@ import namespace="System.Collections.Generic"
+#><#@ import namespace="System.Data.Linq"
+#><#@ import namespace="System.Data.Linq.Mapping"
+#><#@ import namespace="System.IO"
+#><#@ import namespace="System.Linq"
+#><#@ import namespace="System.Reflection"
+#><#@ import namespace="System.Text"
+#><#@ import namespace="System.Xml.Linq"
+#><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
+#><#@ import namespace="iBuild"
+#><#@ import namespace="iBuild.Entity"#>
+<#+
+//                                                   :-D 大神之作慎改 D-:
+class Manager {
+    private class Block {
+        public String Name;
+        public int Start, Length;
+        public bool IncludeInDefault;
+    }
+
+
+    private Block currentBlock;
+    private List<Block> files = new List<Block>();
+    private Block footer = new Block();
+    private Block header = new Block();
+    private ITextTemplatingEngineHost host;
+    private StringBuilder template;
+    protected List<String> generatedFileNames = new List<String>();
+
+
+    public static Manager Create(ITextTemplatingEngineHost host, StringBuilder template) {
+        return (host is IServiceProvider) ? new VSManager(host, template) : new Manager(host, template);
+    }
+
+
+    public void StartNewFile(String name) {
+        if (name == null)
+            throw new ArgumentNullException("name");
+        CurrentBlock = new Block { Name = name };
+    }
+
+
+    public void StartFooter(bool includeInDefault = true) {
+        CurrentBlock = footer;
+        footer.IncludeInDefault = includeInDefault;
+    }
+
+
+    public void StartHeader(bool includeInDefault = true) {
+        CurrentBlock = header;
+        header.IncludeInDefault = includeInDefault;
+    }
+
+
+    public void EndBlock() {
+        if (CurrentBlock == null)
+            return;
+        CurrentBlock.Length = template.Length - CurrentBlock.Start;
+        if (CurrentBlock != header && CurrentBlock != footer)
+            files.Add(CurrentBlock);
+        currentBlock = null;
+    }
+
+
+    public virtual void Process(bool split, bool sync = true) {
+        if (split) {
+            EndBlock();
+            String headerText = template.ToString(header.Start, header.Length);
+            String footerText = template.ToString(footer.Start, footer.Length);
+            String outputPath = Path.GetDirectoryName(host.TemplateFile);
+            files.Reverse();
+            if (!footer.IncludeInDefault)
+                template.Remove(footer.Start, footer.Length);
+            foreach(Block block in files) {
+                String fileName = Path.Combine(outputPath, block.Name);
+                String content = headerText + template.ToString(block.Start, block.Length) + footerText;
+                generatedFileNames.Add(fileName);
+                CreateFile(fileName, content);
+                template.Remove(block.Start, block.Length);
+            }
+            if (!header.IncludeInDefault)
+                template.Remove(header.Start, header.Length);
+        }
+    }
+
+
+    protected virtual void CreateFile(String fileName, String content) {
+        if (IsFileContentDifferent(fileName, content))
+            File.WriteAllText(fileName, content);
+    }
+
+
+    public virtual String GetCustomToolNamespace(String fileName) {
+        return null;
+    }
+
+
+    public virtual String DefaultProjectNamespace {
+        get { return null; }
+    }
+
+
+    protected bool IsFileContentDifferent(String fileName, String newContent) {
+        return !(File.Exists(fileName) && File.ReadAllText(fileName) == newContent);
+    }
+
+
+    private Manager(ITextTemplatingEngineHost host, StringBuilder template) {
+        this.host = host;
+        this.template = template;
+    }
+
+
+    private Block CurrentBlock {
+        get { return currentBlock; }
+        set {
+            if (CurrentBlock != null)
+                EndBlock();
+            if (value != null)
+                value.Start = template.Length;
+            currentBlock = value;
+        }
+    }
+
+
+    private class VSManager: Manager {
+        private EnvDTE.ProjectItem templateProjectItem;
+        private EnvDTE.DTE dte;
+        private Action<String> checkOutAction;
+        private Action<IEnumerable<String>> projectSyncAction;
+
+
+        public override String DefaultProjectNamespace {
+            get {
+                return templateProjectItem.ContainingProject.Properties.Item("DefaultNamespace").Value.ToString();
+            }
+        }
+
+
+        public override String GetCustomToolNamespace(string fileName) {
+            return dte.Solution.FindProjectItem(fileName).Properties.Item("CustomToolNamespace").Value.ToString();
+        }
+
+
+        public override void Process(bool split, bool sync) {
+            if (templateProjectItem.ProjectItems == null)
+                return;
+            base.Process(split, sync);
+            if (sync)
+                projectSyncAction.EndInvoke(projectSyncAction.BeginInvoke(generatedFileNames, null, null));
+        }
+
+
+        protected override void CreateFile(String fileName, String content) {
+            if (IsFileContentDifferent(fileName, content)) {
+                CheckoutFileIfRequired(fileName);
+                File.WriteAllText(fileName, content);
+            }
+        }
+
+
+        internal VSManager(ITextTemplatingEngineHost host, StringBuilder template)
+            : base(host, template) {
+            var hostServiceProvider = (IServiceProvider) host;
+            if (hostServiceProvider == null)
+                throw new ArgumentNullException("Could not obtain IServiceProvider");
+            dte = (EnvDTE.DTE) hostServiceProvider.GetService(typeof(EnvDTE.DTE));
+            if (dte == null)
+                throw new ArgumentNullException("Could not obtain DTE from host");
+            templateProjectItem = dte.Solution.FindProjectItem(host.TemplateFile);
+            checkOutAction = (String fileName) => dte.SourceControl.CheckOutItem(fileName);
+            projectSyncAction = (IEnumerable<String> keepFileNames) => ProjectSync(templateProjectItem, keepFileNames);
+        }
+
+
+        private static void ProjectSync(EnvDTE.ProjectItem templateProjectItem, IEnumerable<String> keepFileNames) {
+            var keepFileNameSet = new HashSet<String>(keepFileNames);
+            var projectFiles = new Dictionary<String, EnvDTE.ProjectItem>();
+            var originalFilePrefix = Path.GetFileNameWithoutExtension(templateProjectItem.get_FileNames(0)) + ".";
+            foreach(EnvDTE.ProjectItem projectItem in templateProjectItem.ProjectItems)
+                projectFiles.Add(projectItem.get_FileNames(0), projectItem);
+
+
+            foreach(var pair in projectFiles)
+                if (!keepFileNames.Contains(pair.Key) && !(Path.GetFileNameWithoutExtension(pair.Key) + ".").StartsWith(originalFilePrefix))
+                    pair.Value.Delete();
+
+            foreach(String fileName in keepFileNameSet)
+                if (!projectFiles.ContainsKey(fileName))
+                    templateProjectItem.ProjectItems.AddFromFile(fileName);
+        }
+
+
+        private void CheckoutFileIfRequired(String fileName) {
+            var sc = dte.SourceControl;
+            if (sc != null && sc.IsItemUnderSCC(fileName) && !sc.IsItemCheckedOut(fileName))
+                checkOutAction.EndInvoke(checkOutAction.BeginInvoke(fileName, null, null));
+        }
+    }
+}
+//                                                   :-D 大神之作慎改 D-:
+#>
+<#+ 
+	//                                               :-D 预定义字段 D-:
+	
+	//标记表
+	public List<string> OTable = new List<string>();
+	//所有字段载体
+	public List<Page> pages;
+	//多页帮助
+	private Manager manager;
+	//特殊表帮助
+	//private bool Oflag;
+	//                                               :-D 预定义字段 D-:
+#>
+<#+
+	//                                               :-D  工具方法  D-:
+
+	/// <summary>
+    /// SQLServer类型转CLR类型
+    /// </summary>
+	public string ToCLR(string TypeName,bool CanNuLL){
+        switch (TypeName)
+        {
+            case "VARCHAR": return "string";
+            case "CHAR": return "string";
+            case "TEXT": return "string";
+            case "DATETIME": return "DateTime" + (CanNuLL ? "?" : "");
+            case "BIT": return "bool" + (CanNuLL ? "?" : "");
+            case "INT": return "int" + (CanNuLL ? "?" : "");
+            case "BIGHT": return "long" + (CanNuLL ? "?" : "");
+            case "NUMERIC": return "decimal" + (CanNuLL ? "?" : "");
+            case "FLOAT": return "double" + (CanNuLL ? "?" : "");
+            case "DOUBLE": return "double" + (CanNuLL ? "?" : "");
+            case "BINARY": return "byte[]";
+            case "VARBINARY": return "byte[]";
+            case "IMAGE": return "byte[]";
+			case "DECIMAL": return "decimal" + (CanNuLL ? "?" : "");
+            default: return "string";
+        }
+    }
+	/// <summary>
+    /// 初始构建 T表 V视图
+    /// </summary>
+	public void Init(string DType="T")
+	{
+		manager = Manager.Create(Host,GenerationEnvironment);
+        switch (DType)
+        {
+			case "T":pages = iBuild.Builder.GetTableInfo(SQLSource);
+				break;
+			case "V":pages = iBuild.Builder.GetViewInfo(SQLSource);
+				break;
+            default:pages = iBuild.Builder.GetTableInfo(SQLSource);
+				break;
+        }
+		manager = Manager.Create(Host,GenerationEnvironment);//创建多文件生成对象
+    }
+	/// <summary>
+    /// 获取页面主键
+    /// </summary>
+	public Field GetPrimaryKey(Page page)
+	{
+        foreach (Field item in page.Fields)
+        {
+			if(item.IsPrimary) return item;
+        }
+		return new Field(){Name="[ID]"};
+    }
+	/// <summary>
+    /// 初始构建
+    /// </summary>
+	public void NewFile(string FileName)
+	{
+		manager.StartNewFile(FileName);
+    }
+	/// <summary>
+    /// 结束构建多文件
+    /// </summary>
+	public void EndFile()
+	{
+		manager.EndBlock(); 
+		manager.Process(true);
+    }
+
+    private int _flag;
+	/// <summary>
+    /// 空名称标记
+    /// </summary>
+    public int Flag
+    {
+        get { 
+			_flag++;
+			return _flag;
+		}
+    }
+	/// <summary>
+    /// 过滤掉表 true 排除 false 只有
+    /// </summary>
+	public void HTable(params string[] TableNames)
+	{
+		OTable.Clear();
+		OTable.AddRange(TableNames);
+    }
+	//                                               :-D  工具方法  D-:
+#>
+<#+
+	//                                               :-D  配置字段  D-:
+	
+	//数据库连接配置
+	private string SQLSource = @"Data Source=192.168.1.102;Initial Catalog=NAPS;User ID=sa;Password=password01!";
+
+	//WebService服务文件及类后缀名
+	public string WebSrvSuffix = "Srv";
+	//WebService逻辑名称空间
+	public string WebSrvNameSpace = "DynamicWebSrv";
+	//iBatis映射文件后缀
+	public string iBatisMap="Map";
+
+	//数据访问层后缀
+	public string DaoSuffix = "Dal";
+	//数据访问层名称空间
+	public string DaoNamespace = "NAPS.Dal";
+
+	//实体类后缀
+	public string EntitySuffix = "Info";
+	//实体类名称空间
+	public string EntityNameSpace="APS.Entity";
+	//实体类程序集名称(用于iBatis)
+	public string EntityAssembly="NAPS.Entity";
+
+	//客户端代理WebService带来名称空间后缀
+	public string WebSrvRefSuffix = "Srv";
+
+	//客户端代理后缀
+	public string ClientSuffix="Client";
+	//客户端逻辑名称空间
+	public string ClientNameSpace="DynamiClient";
+
+	//                                               :-D  配置字段  D-:
+#>

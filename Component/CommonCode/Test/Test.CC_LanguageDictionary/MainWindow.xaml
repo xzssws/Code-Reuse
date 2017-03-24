@@ -1,0 +1,14 @@
+﻿<Window x:Class="Test.CC_LanguageDictionary.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="272" Width="399"  MinHeight="272" MinWidth="399"  MaxHeight="272" MaxWidth="399">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="71,73,0,0" TextWrapping="Wrap" Text="中文" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="209,73,0,0" TextWrapping="Wrap" Text="英文" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="71,95,0,0" TextWrapping="Wrap" Text="{DynamicResource @L_中文}" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="209,95,0,0" TextWrapping="Wrap" Text="{DynamicResource @L_英文}" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btn_ShowAnthor" Content="作者" HorizontalAlignment="Left" Margin="166,173,0,0" VerticalAlignment="Top" Width="75" Click="btn_ShowAnthor_Click"/>
+        <CheckBox IsChecked="True" x:Name="chk_Language" Content="True 中文 False 英文" HorizontalAlignment="Left" Margin="127,139,0,0" VerticalAlignment="Top" Checked="chk_Language_Checked" Unchecked="chk_Language_Unchecked"/>
+
+    </Grid>
+</Window>

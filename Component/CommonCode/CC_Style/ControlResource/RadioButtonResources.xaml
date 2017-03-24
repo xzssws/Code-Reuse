@@ -1,0 +1,84 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\CommonColor\MasterControlColor.xaml" />
+        <ResourceDictionary Source="..\CommonColor\SubControlColor.xaml" />
+        <ResourceDictionary Source="..\CommonColor\Default.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--RadioButton选择框默认边框色-->
+    <SolidColorBrush x:Key="RadioButton_Ellipse_StrokeColor" Color="Gray" />
+
+    <!--RadioButton隐藏左侧控件模板-->
+    <ControlTemplate x:Key="RadioButton_NoLeft_ControlTemplate" TargetType="{x:Type RadioButton}">
+        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}">
+            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Master_Foreground_PressedColor}" />
+                <Setter TargetName="border" Property="Background" Value="{StaticResource Master_Background_PressedColor}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Master_Border_PressedColor}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Master_Foreground_MouseOverColor}" />
+                <Setter TargetName="border" Property="Background" Value="{StaticResource Master_Background_MouseOverColor}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Master_Border_MouseOverColor}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{StaticResource Master_Foreground_DisableColor}" />
+                <Setter TargetName="border" Property="Background" Value="{StaticResource Master_Background_DisableColor}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Master_Border_DisableColor}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!--RadioButton默认控件模板-->
+    <ControlTemplate x:Key="RadioButton_Default_ControlTemplate" TargetType="{x:Type RadioButton}">
+        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+                <Ellipse Grid.Column="0" Margin="0,0,5,0" Fill="White" StrokeThickness="3"
+                         HorizontalAlignment="Center" Height="12" Stroke="{StaticResource RadioButton_Ellipse_StrokeColor}"
+                         VerticalAlignment="Center" Width="12" />
+                <Ellipse x:Name="checkellipse" StrokeThickness="3" Grid.Column="0" Margin="0,0,5,0" Fill="{StaticResource Master_Background_PressedColor}"
+                         Visibility="Hidden" HorizontalAlignment="Center" Height="12" Width="12"
+                         Stroke="{StaticResource RadioButton_Ellipse_StrokeColor}" VerticalAlignment="Center" />
+                <ContentPresenter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Master_Foreground_PressedColor}" />
+                <Setter TargetName="border" Property="Background" Value="Transparent" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Master_Border_PressedColor}" />
+                <Setter TargetName="checkellipse" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource Master_Foreground_MouseOverColor}" />
+                <Setter TargetName="border" Property="Background" Value="{StaticResource Master_Background_MouseOverColor}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Master_Border_MouseOverColor}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{StaticResource Master_Foreground_DisableColor}" />
+                <Setter TargetName="border" Property="Background" Value="{StaticResource Master_Background_DisableColor}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Master_Border_DisableColor}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <!--RadioButton默认样式-->
+    <Style x:Key="RadioButton_Default_Style" TargetType="{x:Type RadioButton}">
+        <Setter Property="Foreground" Value="{StaticResource Master_Foreground_DefaultColor}" />
+        <Setter Property="Background" Value="{StaticResource Master_Background_DefaultColor}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Master_Border_DefaultColor}" />
+        <Setter Property="BorderThickness" Value="{StaticResource Border_Thickness_DefaultValue}" />
+        <Setter Property="FontFamily" Value="{StaticResource TextBlock_FontFamily_Default}" />
+        <Setter Property="FontSize" Value="{StaticResource TextBlock_FontSize_Default}" />
+        <Setter Property="FontStyle" Value="{StaticResource TextBlock_FontStyle_Default}" />
+        <Setter Property="FontWeight" Value="{StaticResource TextBlock_FontWeight_Default}" />
+        <Setter Property="Template" Value="{StaticResource RadioButton_Default_ControlTemplate}" />
+    </Style>
+</ResourceDictionary>

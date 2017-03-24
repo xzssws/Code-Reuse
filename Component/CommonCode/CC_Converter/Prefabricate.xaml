@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Convert="clr-namespace:CC_Converter">
+    <Convert:Convert_BoolToBrush x:Key="Convert_BoolToBrush" />
+    <Convert:Convert_BoolToGridLength x:Key="Convert_BoolToGridLength" />
+    <Convert:Convert_BoolToObject x:Key="Convert_BoolToObject" />
+    <Convert:Convert_BoolToString x:Key="Convert_BoolToString" />
+    <Convert:Convert_BoolToVisibility x:Key="Convert_BoolToVisibility" />
+    <Convert:Convert_CompareToValue x:Key="Convert_CompareToValue" />
+    <Convert:Convert_DoubleToLog10 x:Key="Convert_DoubleToLog10" />
+    <Convert:Convert_EqualityToBoolean x:Key="Convert_EqualityToBoolean" />
+    <Convert:Convert_KeyToValue x:Key="Convert_KeyToValue" />
+    <Convert:Convert_StringIsEmptyToBool x:Key="Convert_StringIsEmptyToBool" />
+    <Convert:Convert_StringIsNullToObject x:Key="Convert_StringIsNullToObject" />
+    <Convert:Convert_StringIsNullToThickness x:Key="Convert_StringIsNullToThickness" />
+    <Convert:Convert_StringSub x:Key="Convert_StringSub" />
+    <Convert:Convert_StringToColor x:Key="Convert_StringToColor" />
+    <Convert:Convert_StringToFirstKey x:Key="Convert_StringToFirstKey" />
+    <Convert:Convert_StringToFont x:Key="Convert_StringToFont" />
+    <Convert:Convert_StringToNull x:Key="Convert_StringToNull" />
+</ResourceDictionary>

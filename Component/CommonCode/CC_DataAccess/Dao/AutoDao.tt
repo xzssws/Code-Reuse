@@ -1,0 +1,146 @@
+﻿<#@ template debug="false" hostspecific="True" language="C#" #>
+<#@include file="$(SolutionDir)\Utils\TBUild.ttinclude" #>
+<#@ output extension=".i" #>
+<# 
+	Init("T");
+	
+#>
+<#
+	//亲~~~~~~~ 如果上面的基本配置好了就不要改我了。
+    foreach (Page item in pages)
+    {
+	  
+	  string DisplayName = item.Name; //文件名称
+	  string DisplayLabel = item.Label; //文件中文表示 现在所有都是英文
+	  string EntityName = DisplayName+EntitySuffix;
+	  string DaoName = DisplayName+DaoSuffix;
+      if(string.IsNullOrEmpty(DisplayName)){ DisplayName="None"+Flag;}
+	  NewFile(DisplayName+DaoSuffix+".cs"); //生成文件名称定义
+#>
+using System;
+using System.Collections.Generic;
+<#=string.IsNullOrEmpty(EntityNameSpace)?"":string.Format("using {0};",EntityNameSpace)#>
+
+namespace <#=DaoNamespace#>
+{
+    /// <summary>
+    /// <para> 类描述：<#=string.IsNullOrEmpty(DisplayLabel.Trim())?DisplayName:DisplayLabel.Replace(Environment.NewLine," ")#> 数据库访问类 </para>
+    /// <para> 类说明：提供对与<#=string.IsNullOrEmpty(DisplayLabel.Trim())?DisplayName:DisplayLabel.Replace(Environment.NewLine," ")#> 基本的查询,新增,修改,删除操作 </para>
+    /// <para> 最后编辑人：徐金泽 </para> 
+    /// <para> 最后编辑时间：<#=NowTime#> </para>
+    /// <para> 备注： </para>
+    /// </summary>
+    public partial class <#=DaoName#>
+    {
+        /// <summary>
+        /// <para> 方法描述：添加一条[<#=string.IsNullOrEmpty(DisplayLabel.Trim())?DisplayName:DisplayLabel.Replace(Environment.NewLine," ")#>]数据 </para>
+        /// <para> 方法说明： </para>
+        /// <para> 最后编辑人：徐金泽 </para> 
+        /// <para> 最后编辑时间：<#=NowTime#> </para>
+        /// <para> 编辑原因：</para>
+        /// </summary>
+        /// <param name="entity">[<#=string.IsNullOrEmpty(DisplayLabel.Trim())?DisplayName:DisplayLabel.Replace(Environment.NewLine," ")#>]新增实例</param>
+		/// <exception cref="ArgumentNullException">参数为空抛出异常</exception>
+        /// <remarks>
+        ///  
+        /// </remarks>
+        /// <returns>是否成功</returns>
+        public static bool Add(<#=DisplayName#><#=EntitySuffix#> entity)
+        {
+            if (entity == null) throw new ArgumentNullException("系统异常:参数 entity 是空值");
+            MyBatis.SqlMap.Insert("Insert-<#=DisplayName#>", entity);
+            return true;
+        }
+        /// <summary>
+        /// <para> 方法描述：更新一条[<#=string.IsNullOrEmpty(DisplayLabel.Trim())?DisplayName:DisplayLabel.Replace(Environment.NewLine," ")#>]数据 </para>
+        /// <para> 方法说明： </para>
+        /// <para> 最后编辑人：徐金泽 </para> 
+        /// <para> 最后编辑时间：<#=NowTime#> </para>
+        /// <para> 编辑原因：</para>
+        /// </summary>
+        /// <param name="entity">[<#=string.IsNullOrEmpty(DisplayLabel.Trim())?DisplayName:DisplayLabel.Replace(Environment.NewLine," ")#>]更新实例</param>
+		/// <exception cref="ArgumentNullException">参数为空抛出异常</exception>
+        /// <remarks>
+        ///  
+        /// </remarks>
+        /// <returns>是否成功</returns>
+        public static bool Update(<#=DisplayName#><#=EntitySuffix#> entity)
+        {
+            if (entity == null) throw new ArgumentNullException("系统异常:参数 entity 是空值");
+            int result = MyBatis.SqlMap.Update("Update-<#=DisplayName#>", entity);
+            return result > 0;
+        }
+        /// <summary>
+        /// <para> 方法描述：根据主键删除一条[<#=string.IsNullOrEmpty(DisplayLabel.Trim())?DisplayName:DisplayLabel.Replace(Environment.NewLine," ")#>] </para>
+        /// <para> 方法说明： </para>
+        /// <para> 最后编辑人：徐金泽 </para> 
+        /// <para> 最后编辑时间：<#=NowTime#> </para>
+        /// <para> 编辑原因：</para>
+        /// </summary>
+        /// <param name="entityID">要删除[<#=string.IsNullOrEmpty(DisplayLabel.Trim())?DisplayName:DisplayLabel.Replace(Environment.NewLine," ")#>]的主键值</param>
+		/// <exception cref="ArgumentNullException">参数为空抛出异常</exception>
+        /// <remarks>
+        ///  
+        /// </remarks>
+        /// <returns>是否成功</returns>
+        public static bool Delete(string entityID)
+        {
+            if (string.IsNullOrEmpty(entityID)) throw new ArgumentNullException("系统异常:参数 entityID 是空值");
+            int result = MyBatis.SqlMap.Delete("Delete-<#=DisplayName#>", entityID);
+            return result > 0;
+        }
+        /// <summary>
+        /// <para> 方法描述：根据条件删除若干[<#=string.IsNullOrEmpty(DisplayLabel.Trim())?DisplayName:DisplayLabel.Replace(Environment.NewLine," ")#>] </para>
+        /// <para> 方法说明： </para>
+        /// <para> 最后编辑人：徐金泽 </para> 
+        /// <para> 最后编辑时间：2014/06/27 20:41:27 </para>
+        /// <para> 编辑原因：</para>
+        /// </summary>
+        /// <param name="entity">[<#=string.IsNullOrEmpty(DisplayLabel.Trim())?DisplayName:DisplayLabel.Replace(Environment.NewLine," ")#>]删除条件实例</param>
+        /// <exception cref="ArgumentNullException">参数为空抛出异常</exception>
+        /// <remarks>
+        ///  
+        /// </remarks>
+        /// <returns>是否成功</returns>
+        public static bool Deletes(<#=DisplayName#><#=EntitySuffix#> entity)
+        {
+            if (entity==null) throw new ArgumentNullException("系统异常:参数 entity 是空值");
+            int result = MyBatis.SqlMap.Delete("Delete-<#=DisplayName#>-ByCondition", entity);
+            return result > 0;
+        }
+        /// <summary>
+        /// <para> 方法描述：按条件查询[<#=string.IsNullOrEmpty(DisplayLabel.Trim())?DisplayName:DisplayLabel.Replace(Environment.NewLine," ")#>] </para>
+        /// <para> 方法说明： </para>
+        /// <para> 最后编辑人：徐金泽 </para> 
+        /// <para> 最后编辑时间：<#=NowTime#> </para>
+        /// <para> 编辑原因：</para>
+        /// <param name="entity">[<#=string.IsNullOrEmpty(DisplayLabel.Trim())?DisplayName:DisplayLabel.Replace(Environment.NewLine," ")#>]筛选实例</param>
+        /// </summary>
+		/// <exception cref="ArgumentNullException">参数为空抛出异常</exception>
+        /// <remarks>
+        ///  
+        /// </remarks>
+        /// <returns>查询结果</returns>
+        public static IList<<#=EntityName#>> Select(<#=EntityName#> entity)
+        {
+			if (entity == null) throw new ArgumentNullException("系统异常:参数 entity 是空值");
+            return MyBatis.SqlMap.QueryForList<<#=EntityName#>>("Select-<#=DisplayName#>", entity);
+        }
+        /// <summary>
+        /// <para> 方法描述：查询所有[<#=string.IsNullOrEmpty(DisplayLabel.Trim())?DisplayName:DisplayLabel.Replace(Environment.NewLine," ")#>] </para>
+        /// <para> 方法说明： </para>
+        /// <para> 最后编辑人：徐金泽 </para> 
+        /// <para> 最后编辑时间：<#=NowTime#> </para>
+        /// <para> 编辑原因：</para>
+        /// </summary>
+        /// <remarks>
+        ///  
+        /// </remarks>
+        /// <returns>查询结果</returns>
+        public static IList<<#=EntityName#>> Selects()
+        {
+            return MyBatis.SqlMap.QueryForList<<#=EntityName#>>("Select-<#=DisplayName#>", null);
+        }
+    }
+}
+<#}EndFile();#>
