@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\CommonColor\Brushes.xaml" />
+        <ResourceDictionary Source="..\CommonColor\Colors.xaml" />
+        <ResourceDictionary Source="..\CommonColor\Fonts.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="{x:Type Separator}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Separator}">
+                    <Grid Margin="3,2,3,2"
+                          SnapsToDevicePixels="true"
+                          UseLayoutRounding="False">
+                        <Rectangle Height="1" Fill="{StaticResource MenuSeparatorBrush}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

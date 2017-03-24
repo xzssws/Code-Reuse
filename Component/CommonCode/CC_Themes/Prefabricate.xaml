@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="CommonColor\Brushes.xaml" />
+        <ResourceDictionary Source="CommonColor\Colors.xaml" />
+        <ResourceDictionary Source="CommonColor\Fonts.xaml" />
+        <ResourceDictionary Source="ControlResource\01.TabControl.xaml" />
+        <ResourceDictionary Source="ControlResource\02.Scrollbar.xaml" />
+        <ResourceDictionary Source="ControlResource\03.TextBox.xaml" />
+        <ResourceDictionary Source="ControlResource\04.ComboBox.xaml" />
+        <ResourceDictionary Source="ControlResource\05.Button.xaml" />
+        <ResourceDictionary Source="ControlResource\06.ToggleButton.xaml" />
+        <ResourceDictionary Source="ControlResource\07.Expander.xaml" />
+        <ResourceDictionary Source="ControlResource\08.CheckBox.xaml" />
+        <ResourceDictionary Source="ControlResource\09.RadioButton.xaml" />
+        <ResourceDictionary Source="ControlResource\10.ListView.xaml" />
+        <ResourceDictionary Source="ControlResource\11.Label.xaml" />
+        <ResourceDictionary Source="ControlResource\12.TreeView.xaml" />
+        <ResourceDictionary Source="ControlResource\13.StatusBar.xaml" />
+        <ResourceDictionary Source="ControlResource\14.Menu.xaml" />
+        <ResourceDictionary Source="ControlResource\15.Separator.xaml" />
+        <ResourceDictionary Source="ControlResource\16.ListBox.xaml" />
+        <ResourceDictionary Source="ControlResource\17.GroupBox.xaml" />
+        <ResourceDictionary Source="ControlResource\18.DataGridStyle.xaml" />
+        <ResourceDictionary Source="ControlResource\19.Window.xaml" />
+        <ResourceDictionary Source="ControlResource\20.UserControl.xaml" />
+        <ResourceDictionary Source="ControlResource\21.DatePicker.xaml" />
+        
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

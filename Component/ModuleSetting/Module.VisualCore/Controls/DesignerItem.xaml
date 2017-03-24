@@ -1,0 +1,44 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:Module.VisualCore">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\Resources\ResizeRotateChrome.xaml"/>
+        <ResourceDictionary Source="..\Resources\SizeChrome.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <ControlTemplate x:Key="MoveThumbTemplate"  TargetType="{x:Type s:MoveThumb}">
+        <Rectangle Fill="Transparent"/>
+    </ControlTemplate>
+
+    <Style x:Key="DesignerItemStyle" TargetType="ContentControl">
+        <Setter Property="MinHeight" Value="5"/>
+        <Setter Property="MinWidth" Value="5"/>
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Margin="{TemplateBinding Margin}">
+                        <Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}">
+                            <s:MoveThumb Cursor="SizeAll" Template="{StaticResource MoveThumbTemplate}" />
+                            <ContentPresenter Content="{TemplateBinding ContentControl.Content}"
+                              Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <s:DesignerItemDecorator x:Name="ItemDecorator" ShowDecorator="True" Visibility="Hidden"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Selector.IsSelected" Value="True">
+                            <Setter TargetName="ItemDecorator" Property="Visibility" Value="Visible"  />
+                        </Trigger>
+                        <Trigger Property="Selector.IsSelected" Value="False">
+                            <Setter TargetName="ItemDecorator" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+</ResourceDictionary>
